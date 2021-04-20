@@ -1,13 +1,50 @@
+:root {
+  --primary-text-color: rgba(255, 255, 255, 1);
+  --secondary-text-color: rgba(95, 99, 115, 100);
+  --main-background-color: linear-gradient(
+    167.95deg,
+    #2b2840 0%,
+    #181a20 36.17%,
+    #181a20 72.45%,
+    #2b2840 99.95%,
+    #1f1f29 99.96%
+  );
+  --secondary-background-color: rgba(38, 42, 52, 1);
+  --blue: rgba(35, 107, 253, 1);
+  --red: rgba(227, 33, 33, 1);
+  --white: rgba(255, 255, 255, 1);
+  --orange: rgba(252, 143, 111, 1);
+  --green: rgba(119, 179, 100, 1);
+  --pink: rgba(249, 137, 254, 1);
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto';
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+  color: var(--primary-text-color);
+  box-sizing: border-box;
+}
+.peke {
+  font-family: 'Neuton';
+  font-weight: normal;
+  color: var(--white);
+  font-size: 4em;
+  position: absolute;
+  top: 0;
+  margin-top: 1em;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }

@@ -1,0 +1,37 @@
+.pet_list_card {
+  max-height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: var(--secondary-background-color);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.pet_picture {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: rgba(255, 255, 255, 1);
+  border-style: solid;
+}
+.pet_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}
+.pet_card_name {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+.pet_card_birthDate {
+  font-size: 1em;
+  font-weight: bolder;
+  color: var(--secondary-text-color);
+  margin-top: 0.2em;
+}

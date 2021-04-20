@@ -1,0 +1,5 @@
+.pet_select_container {
+  background: var(--main-background-color);
+  height: 100vh;
+  color: red;
+}

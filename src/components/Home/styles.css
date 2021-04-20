@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: var(--main-background-color);
+}
+
+.welcome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 90vw;
+}
+.welcome_text {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.new_button {
+  background-color: var(--blue);
+  height: 4.5em;
+  width: 4.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  font-weight: bold;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.pet_list_container {
+  min-width: 90vw;
+  margin-top: 20px;
+}
