@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { backArrow } from '../../images'
+import { backArrow, plus } from '../../images'
 import db from '../../mock-data'
 import EventCard from '../EventCard'
 import './styles.css'
@@ -58,6 +58,7 @@ const PetSelect = (props) => {
         db.events[name][selected].map((event) => {
           return <EventCard event={event} />
         })}
+      <img className='add_event' src={plus} alt='add event' />
     </div>
   )
 }

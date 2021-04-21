@@ -30,6 +30,11 @@ const EventCard = ({ event }) => {
     }
   }
 
+  const capitalizeText = (text) => {
+    if (typeof text !== 'string') return ''
+    return text.charAt(0).toUpperCase() + text.slice(1)
+  }
+
   return (
     <div className='event_container'>
       <div className='event_container_left'>
@@ -38,7 +43,9 @@ const EventCard = ({ event }) => {
           src={styleSelector(event.type, 'icon')}
           alt={event.type}
         />
-        <p className='event_container_description'>{event.description}</p>
+        <p className='event_container_description'>
+          {capitalizeText(event.description)}
+        </p>
       </div>
       <p
         className='event_container_date'

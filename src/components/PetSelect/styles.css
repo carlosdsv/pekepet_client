@@ -48,3 +48,9 @@
   padding: 0.5em 1em 0.5em 1em;
   cursor: pointer;
 }
+.add_event {
+  position: absolute;
+  right: 5vw;
+  bottom: 5vh;
+  cursor: pointer;
+}

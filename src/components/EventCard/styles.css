@@ -25,7 +25,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  text-transform: capitalize;
 }
 .event_container_date {
   font-size: 1.1em;
