@@ -6,7 +6,7 @@ const PetList = ({ pet }) => {
   let history = useHistory()
 
   const handleSelect = () => {
-    history.push('/petselect')
+    history.push('/petselect', pet)
   }
   return (
     <div className='pet_list_card' onClick={handleSelect}>

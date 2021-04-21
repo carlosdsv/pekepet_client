@@ -1,5 +1,30 @@
 .pet_select_container {
   background: var(--main-background-color);
   height: 100vh;
-  color: red;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  padding-top: 3.5em;
+}
+.pet_select_card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 10vw;
+}
+.selected_pet_picture {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: rgba(255, 255, 255, 1);
+  border-style: solid;
+  margin-right: 20px;
+}
+.events_title {
+  margin-top: 20px;
+  color: var(--secondary-text-color);
+  font-size: 1.7em;
+  font-weight: bolder;
 }

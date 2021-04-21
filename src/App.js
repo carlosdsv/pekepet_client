@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Home, PetSelect, PetAdd } from './components'
+import { Home, PetSelect, PetAdd, Signin, Signup } from './components'
 
 const App = () => {
   return (
@@ -14,6 +14,12 @@ const App = () => {
         </Route>
         <Route exact path='/petselect'>
           <PetSelect />
+        </Route>
+        <Route exact path='/signin'>
+          <Signin />
+        </Route>
+        <Route exact path='/signup'>
+          <Signup />
         </Route>
       </Switch>
     </Router>
