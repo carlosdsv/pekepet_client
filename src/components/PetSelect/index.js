@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { backArrow } from '../../images'
-
+import db from '../../mock-data'
+import EventCard from '../EventCard'
 import './styles.css'
 
 const PetSelect = (props) => {
   let history = useHistory()
-  const {
-    name,
-    species,
-    breed,
-    birthDate,
-    notes,
-    profilePicture,
-  } = history.location.state
+  const { name, profilePicture } = history.location.state
+  const [selected, setSelected] = useState('recent')
+
+  const handleSelect = (selectEvent) => {
+    setSelected(selectEvent)
+  }
   const handleBack = () => {
     history.goBack()
   }
@@ -31,10 +30,34 @@ const PetSelect = (props) => {
         <h1 className='welcome_text'>{name}</h1>
       </div>
       <h3 className='events_title'>EVENTS</h3>
-      <p>{species}</p>
-      <p>{birthDate}</p>
-      <p>{breed}</p>
-      <p>{notes}</p>
+      <div className='events_options'>
+        <div onClick={() => handleSelect('recent')}>
+          <p
+            className={
+              selected === 'recent'
+                ? 'events_options_selected'
+                : 'events_options_not_selected'
+            }
+          >
+            Recent
+          </p>
+        </div>
+        <div onClick={() => handleSelect('upcomming')}>
+          <p
+            className={
+              selected === 'upcomming'
+                ? 'events_options_selected'
+                : 'events_options_not_selected'
+            }
+          >
+            Upcomming
+          </p>
+        </div>
+      </div>
+      {db &&
+        db.events[name][selected].map((event) => {
+          return <EventCard event={event} />
+        })}
     </div>
   )
 }

@@ -28,3 +28,23 @@
   font-size: 1.7em;
   font-weight: bolder;
 }
+.events_options {
+  display: flex;
+  margin: 0.5em 0 0.5em 0;
+}
+.events_options_selected {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: var(--blue);
+  border-radius: 2em;
+  cursor: pointer;
+}
+.events_options_not_selected {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.5em;
+  color: var(--secondary-text-color);
+  padding: 0.5em 1em 0.5em 1em;
+  cursor: pointer;
+}
