@@ -1,6 +1,7 @@
-import React, { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useRef, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../../context/AuthContext'
 import './styles.css'
 
 const Signup = () => {
@@ -12,13 +13,28 @@ const Signup = () => {
   } = useForm()
   const password = useRef({})
   password.current = watch('password', '')
-  const onSubmit = (data) => console.log(data)
+  const { signup } = useAuth()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const history = useHistory()
+
+  const onSubmit = async (data) => {
+    try {
+      setError('')
+      setLoading(true)
+      await signup(data.email, data.password)
+      history.push('/')
+    } catch (err) {
+      setError(err.message)
+    }
+    setLoading(false)
+  }
 
   return (
     <div className='sign_container '>
       <p className='peke'>PEKE</p>
       <p className='sign_title'>Sign Up</p>
-
+      {error && <span role='alert'>{error}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='email'>
@@ -85,7 +101,12 @@ const Signup = () => {
 
         <div>
           <label htmlFor='signup'>
-            <button className='sign_button' id='signup' type='submit'>
+            <button
+              disabled={loading}
+              className='sign_button'
+              id='signup'
+              type='submit'
+            >
               Sign Up
             </button>
           </label>

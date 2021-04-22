@@ -1,27 +1,42 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import { Home, PetSelect, PetAdd, Signin, Signup } from './components'
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { currentUser } = useAuth()
+
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        return currentUser ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to='/signin' />
+        )
+      }}
+    ></Route>
+  )
+}
 
 const App = () => {
   return (
     <Router>
-      <Switch>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route path='/add'>
-          <PetAdd />
-        </Route>
-        <Route path='/petselect'>
-          <PetSelect />
-        </Route>
-        <Route path='/signin'>
-          <Signin />
-        </Route>
-        <Route path='/signup'>
-          <Signup />
-        </Route>
-      </Switch>
+      <AuthProvider>
+        <Switch>
+          <PrivateRoute exact path='/' component={Home} />
+          <Route path='/add' component={PetAdd} />
+          <Route path='/petselect' component={PetSelect} />
+          <Route path='/signin' component={Signin} />
+          <Route path='/signup' component={Signup} />
+        </Switch>
+      </AuthProvider>
     </Router>
   )
 }

@@ -1,6 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../../context/AuthContext'
 
 const Signin = () => {
   const {
@@ -8,13 +9,28 @@ const Signin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => console.log(data)
+  const { signin } = useAuth()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const history = useHistory()
+
+  const onSubmit = async (data) => {
+    try {
+      setError('')
+      setLoading(true)
+      await signin(data.email, data.password)
+      history.push('/')
+    } catch (err) {
+      setError(err.message)
+    }
+    setLoading(false)
+  }
 
   return (
     <div className='sign_container '>
       <p className='peke'>PEKE</p>
       <p className='sign_title'>Login</p>
-
+      {error && <span role='alert'>{error}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='email'>
@@ -62,7 +78,12 @@ const Signin = () => {
 
         <div>
           <label htmlFor='signin'>
-            <button className='sign_button' id='signin' type='submit'>
+            <button
+              disabled={loading}
+              className='sign_button'
+              id='signin'
+              type='submit'
+            >
               Sign In
             </button>
           </label>
