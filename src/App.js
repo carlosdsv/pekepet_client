@@ -9,16 +9,16 @@ const App = () => {
         <Route exact path='/'>
           <Home />
         </Route>
-        <Route exact path='/add'>
+        <Route path='/add'>
           <PetAdd />
         </Route>
-        <Route exact path='/petselect'>
+        <Route path='/petselect'>
           <PetSelect />
         </Route>
-        <Route exact path='/signin'>
+        <Route path='/signin'>
           <Signin />
         </Route>
-        <Route exact path='/signup'>
+        <Route path='/signup'>
           <Signup />
         </Route>
       </Switch>
