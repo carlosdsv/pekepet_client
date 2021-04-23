@@ -8,18 +8,28 @@ export function useUser() {
 }
 
 export function UserProvider({ children }) {
-  const [userName, setUserName] = useState()
+  const [userName, setUserName] = useState('')
   const [pets, setPets] = useState([])
+  const [loading, setLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
   const createUser = async (name, uid) => {
     try {
-      const response = await apiServer.post('/create-user', { uid, name })
+      await apiServer.post('/create-user', { uid, name })
       setUserName({ name })
-      console.log(response)
     } catch (error) {
       setErrorMessage(error.message)
     }
+  }
+
+  const getUser = async (uid) => {
+    try {
+      const response = await apiServer.post('/get-user', { uid })
+      setUserName(response.data.name)
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
+    setLoading(false)
   }
 
   const value = {
@@ -29,6 +39,8 @@ export function UserProvider({ children }) {
     createUser,
     pets,
     setPets,
+    getUser,
+    loading,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import { useUser } from '../../context/UserContext'
+import db from '../../mock-data'
 import PetList from '../PetList'
 import { gearOption, plus } from '../../images'
 import './styles.css'
 
 const Home = () => {
   let history = useHistory()
-  const { userName, pets } = useUser()
+  const { userName, pets, getUser, loading } = useUser()
+  const { currentUser } = useAuth()
 
   const handleAdd = () => {
     history.push('/add')
   }
   const handleOptions = () => {
     history.push('/options')
+  }
+
+  useEffect(() => {
+    getUser(currentUser.uid)
+  }, [currentUser.uid, getUser])
+
+  if (loading) {
+    return <div style={{ color: 'red' }}>LOADING</div>
   }
 
   return (
@@ -37,11 +48,12 @@ const Home = () => {
         </div>
       </div>
       <div className='pet_list_container'>
-        {pets && pets.length === 0 ? (
+        {/* {pets && pets.length === 0 ? (
           <p>Start creating a new pet</p>
         ) : (
-          pets.pets.map((pet, i) => <PetList key={i} pet={pet} />)
-        )}
+          pets.map((pet, i) => <PetList key={i} pet={pet} />)
+        )} */}
+        {db && db.pets.map((pet, i) => <PetList key={i} pet={pet} />)}
       </div>
     </div>
   )
