@@ -29,15 +29,21 @@
   margin-bottom: 1.5em;
 }
 .redirect_sign {
-  font-size: 1.2em;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   align-self: center;
-  color: var(--secondary-text-color);
   margin-top: 1em;
 }
+.redirect_sign_text {
+  font-size: 1.2em;
+  color: var(--secondary-text-color);
+  margin-right: 0.5em;
+}
 .sign_link {
+  font-size: 1.2em;
   color: var(--blue);
   text-decoration: none;
-  margin-left: 0.5em;
   cursor: pointer;
 }

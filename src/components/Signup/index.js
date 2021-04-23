@@ -44,6 +44,8 @@ const Signup = () => {
             id='email'
             type='text'
             placeholder='Email'
+            autoComplete='off'
+            autoCapitalize='off'
             aria-invalid={errors.email ? 'true' : 'false'}
             {...register('email', {
               required: true,
@@ -66,6 +68,8 @@ const Signup = () => {
             id='password'
             type='password'
             placeholder='Password'
+            autoComplete='off'
+            autoCapitalize='off'
             aria-invalid={errors.password ? 'true' : 'false'}
             {...register('password', {
               required: true,
@@ -88,6 +92,8 @@ const Signup = () => {
             id='confirm_password'
             type='password'
             placeholder='Repeat Password'
+            autoComplete='off'
+            autoCapitalize='off'
             aria-invalid={errors.confirm_password ? 'true' : 'false'}
             {...register('confirm_password', {
               validate: (value) => value === password.current,

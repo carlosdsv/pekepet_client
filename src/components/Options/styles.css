@@ -1,0 +1,29 @@
+.options_container {
+  background: var(--main-background-color);
+  height: 100vh;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  padding-top: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.options_title {
+  font-size: 2em;
+  font-weight: bolder;
+  margin-top: 6em;
+  align-self: flex-start;
+}
+.signout_button {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--red);
+  border: none;
+  width: 10em;
+  height: 2.5em;
+  margin-top: 2.5em;
+  border-radius: 2em;
+  cursor: pointer;
+  align-self: center;
+}

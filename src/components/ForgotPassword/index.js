@@ -1,25 +1,26 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../../context/AuthContext'
 
-const Signin = () => {
+const ForgotPassword = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const { signin } = useAuth()
+  const { resetPassword } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const [message, setMessage] = useState('')
 
   const onSubmit = async (data) => {
     try {
+      setMessage('')
       setError('')
       setLoading(true)
-      await signin(data.email, data.password)
-      history.push('/')
+      await resetPassword(data.email)
+      setMessage('Check your email for further instructions')
     } catch (err) {
       setError(err.message)
     }
@@ -29,8 +30,9 @@ const Signin = () => {
   return (
     <div className='sign_container '>
       <p className='peke'>PEKE</p>
-      <p className='sign_title'>Login</p>
+      <p className='sign_title'>Reset Password</p>
       {error && <span role='alert'>{error}</span>}
+      {message && <span role='alert'>{message}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='email'>
@@ -56,30 +58,6 @@ const Signin = () => {
           )}
         </div>
 
-        <div className='input_container'>
-          <label className='input_title' htmlFor='password'>
-            YOUR PASSWORD
-          </label>
-          <input
-            id='password'
-            type='password'
-            placeholder='Password'
-            autoComplete='off'
-            autoCapitalize='off'
-            aria-invalid={errors.password ? 'true' : 'false'}
-            {...register('password', {
-              required: true,
-              minLength: 6,
-            })}
-          />
-          {errors.password && errors.password.type === 'required' && (
-            <span role='alert'>Password is required.</span>
-          )}
-          {errors.password && errors.password.type === 'minLength' && (
-            <span role='alert'>Password must have at least 6 characters.</span>
-          )}
-        </div>
-
         <div>
           <label htmlFor='signin'>
             <button
@@ -88,7 +66,7 @@ const Signin = () => {
               id='signin'
               type='submit'
             >
-              Sign In
+              Reset Password
             </button>
           </label>
         </div>
@@ -101,12 +79,12 @@ const Signin = () => {
         </Link>
       </div>
       <div className='redirect_sign'>
-        <Link className='sign_link' to='/forgot-password'>
-          Forgot your password?
+        <Link className='sign_link' to='/signin'>
+          Log In
         </Link>
       </div>
     </div>
   )
 }
 
-export default Signin
+export default ForgotPassword

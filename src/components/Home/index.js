@@ -3,18 +3,26 @@ import { useHistory } from 'react-router-dom'
 import './styles.css'
 import db from '../../mock-data.js'
 import PetList from '../PetList'
-import { menu, plus } from '../../images'
+import { gearOption, plus } from '../../images'
 
 const Home = () => {
   let history = useHistory()
   const handleAdd = () => {
     history.push('/add')
   }
+  const handleOptions = () => {
+    history.push('/options')
+  }
 
   return (
     <div className='container'>
-      <div className='menu'>
-        <img src={menu} alt='menu' />
+      <div>
+        <img
+          onClick={handleOptions}
+          className='menu'
+          src={gearOption}
+          alt='options'
+        />
       </div>
       <p className='peke'>PEKE</p>
       <div className='welcome'>
