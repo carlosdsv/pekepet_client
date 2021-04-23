@@ -5,7 +5,7 @@ import db from '../../mock-data'
 import EventCard from '../EventCard'
 import './styles.css'
 
-const PetSelect = (props) => {
+const PetSelect = () => {
   let history = useHistory()
   const { name, profilePicture } = history.location.state
   const [selected, setSelected] = useState('recent')
@@ -29,7 +29,7 @@ const PetSelect = (props) => {
         <img className='selected_pet_picture' src={profilePicture} alt={name} />
         <h1 className='welcome_text'>{name}</h1>
       </div>
-      <h3 className='events_title'>EVENTS</h3>
+      <h1 className='events_title'>EVENTS</h1>
       <div className='events_options'>
         <div onClick={() => handleSelect('recent')}>
           <p

@@ -17,13 +17,12 @@
   border-width: 5px;
   border-color: rgba(255, 255, 255, 1);
   border-style: solid;
-  margin-right: 20px;
   background-color: var(--secondary-background-color);
   cursor: pointer;
 }
 .create_new_pet_title {
   align-self: flex-start;
   color: var(--secondary-text-color);
-  margin-top: 1em;
+  margin-top: 1rem;
   font-weight: bold;
 }

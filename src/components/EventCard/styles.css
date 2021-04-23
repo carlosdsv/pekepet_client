@@ -1,12 +1,12 @@
 .event_container {
   background: var(--secondary-background-color);
-  height: 3.5em;
-  margin-bottom: 1em;
-  border-radius: 10px;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5em;
+  padding: 0.5rem;
   cursor: pointer;
 }
 
@@ -15,18 +15,18 @@
   align-items: center;
 }
 .event_container_image {
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 .event_container_description {
-  font-size: 1.3em;
+  font-size: 1rem;
   font-weight: bolder;
-  max-width: 50vw;
+  max-width: 45vw;
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 .event_container_date {
-  font-size: 1.1em;
+  font-size: 1rem;
   font-weight: bolder;
 }

@@ -4,7 +4,7 @@
   min-height: 100vh;
   align-items: center;
   background: var(--main-background-color);
-  padding-top: 10em;
+  padding-top: 9rem;
 }
 
 .welcome {
@@ -15,20 +15,20 @@
   min-width: 90vw;
 }
 h1 {
-  font-size: 2em;
+  font-size: 1.7rem;
   font-weight: bold;
 }
 
 .new_button {
   background-color: var(--blue);
-  height: 4.5em;
-  width: 4.5em;
+  height: 4rem;
+  width: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 100%;
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 

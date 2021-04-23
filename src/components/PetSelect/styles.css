@@ -3,7 +3,7 @@
   height: 100vh;
   padding-left: 5vw;
   padding-right: 5vw;
-  padding-top: 3.5em;
+  padding-top: 3.5rem;
 }
 .pet_select_card {
   display: flex;
@@ -25,32 +25,31 @@
 .events_title {
   margin-top: 20px;
   color: var(--secondary-text-color);
-  font-size: 1.7em;
+  font-size: 1.5rem;
   font-weight: bolder;
 }
 .events_options {
   display: flex;
-  margin: 0.5em 0 0.5em 0;
+  margin: 0.5rem 0 0.5rem 0;
 }
 .events_options_selected {
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.3rem 1rem 0.3rem 1rem;
   background-color: var(--blue);
-  border-radius: 2em;
+  border-radius: 2rem;
   cursor: pointer;
 }
 .events_options_not_selected {
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 0.5em;
   color: var(--secondary-text-color);
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.3rem 1rem 0.3rem 1rem;
   cursor: pointer;
 }
 .add_event {
   position: absolute;
   right: 5vw;
-  bottom: 5vh;
+  bottom: 0;
   cursor: pointer;
 }
