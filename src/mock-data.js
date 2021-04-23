@@ -1,6 +1,5 @@
 const db = {
   name: 'Maya',
-  profilePicture: '',
   pets: [
     {
       name: 'Arya',

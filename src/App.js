@@ -6,6 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { UserProvider } from './context/UserContext'
 import {
   ForgotPassword,
   Home,
@@ -14,6 +15,7 @@ import {
   Signin,
   Signup,
   Options,
+  UserName,
 } from './components'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -37,15 +39,18 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <Switch>
-          <PrivateRoute exact path='/' component={Home} />
-          <Route path='/add' component={PetAdd} />
-          <Route path='/forgot-password' component={ForgotPassword} />
-          <Route path='/options' component={Options} />
-          <Route path='/petselect' component={PetSelect} />
-          <Route path='/signin' component={Signin} />
-          <Route path='/signup' component={Signup} />
-        </Switch>
+        <UserProvider>
+          <Switch>
+            <PrivateRoute exact path='/' component={Home} />
+            <Route path='/add' component={PetAdd} />
+            <Route path='/forgot-password' component={ForgotPassword} />
+            <Route path='/options' component={Options} />
+            <Route path='/petselect' component={PetSelect} />
+            <Route path='/signin' component={Signin} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/user-name' component={UserName} />
+          </Switch>
+        </UserProvider>
       </AuthProvider>
     </Router>
   )

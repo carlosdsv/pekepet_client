@@ -23,7 +23,7 @@ const Signup = () => {
       setError('')
       setLoading(true)
       await signup(data.email, data.password)
-      history.push('/')
+      history.push('/user-name')
     } catch (err) {
       setError(err.message)
     }
