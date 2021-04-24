@@ -25,7 +25,7 @@ export function UserProvider({ children }) {
   const createPet = async (req) => {
     const { uid, name, species, breed, birthDate, notes, profilePicture } = req
     try {
-      const response = await apiServer.post('/create-pet', {
+      await apiServer.post('/create-pet', {
         uid,
         name,
         species,
@@ -34,7 +34,7 @@ export function UserProvider({ children }) {
         notes,
         profilePicture,
       })
-      setPets(response.data.pets)
+      getPets(uid)
     } catch (error) {
       setErrorMessage(error.message)
     }

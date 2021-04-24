@@ -7,14 +7,17 @@ import './styles.css'
 
 const PetSelect = () => {
   let history = useHistory()
-  const { name, profilePicture } = history.location.state
+  const pet = history.location.state
   const [selected, setSelected] = useState('recent')
 
   const handleSelect = (selectEvent) => {
     setSelected(selectEvent)
   }
   const handleBack = () => {
-    history.goBack()
+    history.push('/')
+  }
+  const handlePetDetails = () => {
+    history.push('/petdetails', pet)
   }
 
   return (
@@ -26,8 +29,13 @@ const PetSelect = () => {
         alt={backArrow}
       />
       <div className='pet_select_card'>
-        <img className='selected_pet_picture' src={profilePicture} alt={name} />
-        <h1 className='welcome_text'>{name}</h1>
+        <img
+          className='selected_pet_picture'
+          src={pet.profilePicture}
+          alt={pet.name}
+          onClick={handlePetDetails}
+        />
+        <h1 className='welcome_text'>{pet.name}</h1>
       </div>
       <h1 className='events_title'>EVENTS</h1>
       <div className='events_options'>
@@ -54,8 +62,8 @@ const PetSelect = () => {
           </p>
         </div>
       </div>
-      {db &&
-        db.events[name][selected].map((event) => {
+      {db.events[pet.name] &&
+        db.events[pet.name][selected].map((event) => {
           return <EventCard event={event} />
         })}
       <img className='add_event' src={plus} alt='add event' />

@@ -77,7 +77,9 @@ const PetAdd = () => {
           {errors.name && errors.name.type === 'required' && (
             <span role='alert'>Pet name is required.</span>
           )}
+        </div>
 
+        <div className='input_container'>
           <label className='input_title' htmlFor='species'>
             SPECIES
           </label>
@@ -95,7 +97,9 @@ const PetAdd = () => {
           {errors.species && errors.species.type === 'required' && (
             <span role='alert'>Pet species is required.</span>
           )}
+        </div>
 
+        <div className='input_container'>
           <label className='input_title' htmlFor='breed'>
             BREED
           </label>
@@ -113,14 +117,16 @@ const PetAdd = () => {
           {errors.breed && errors.breed.type === 'required' && (
             <span role='alert'>Pet breed is required.</span>
           )}
+        </div>
 
+        <div className='input_container'>
           <label className='input_title' htmlFor='birthDate'>
-            birthDate
+            BIRTHDATE
           </label>
           <input
             id='birthDate'
             type='text'
-            placeholder='birthDate'
+            placeholder='Pet Birthdate'
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.birthDate ? 'true' : 'false'}
@@ -131,14 +137,16 @@ const PetAdd = () => {
           {errors.birthDate && errors.birthDate.type === 'required' && (
             <span role='alert'>Pet birthDate is required.</span>
           )}
+        </div>
 
+        <div className='input_container'>
           <label className='input_title' htmlFor='notes'>
-            notes
+            ADITIONAL NOTES
           </label>
           <input
             id='notes'
             type='text'
-            placeholder='notes'
+            placeholder='e.g. weight, alergies...'
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.notes ? 'true' : 'false'}

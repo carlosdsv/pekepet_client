@@ -10,8 +10,9 @@ import { UserProvider } from './context/UserContext'
 import {
   ForgotPassword,
   Home,
-  PetSelect,
   PetAdd,
+  PetDetails,
+  PetSelect,
   Signin,
   Signup,
   Options,
@@ -46,6 +47,7 @@ const App = () => {
             <Route path='/forgot-password' component={ForgotPassword} />
             <Route path='/options' component={Options} />
             <Route path='/petselect' component={PetSelect} />
+            <Route path='/petdetails' component={PetDetails} />
             <Route path='/signin' component={Signin} />
             <Route path='/signup' component={Signup} />
             <Route path='/user-name' component={UserName} />
