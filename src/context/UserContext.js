@@ -22,10 +22,37 @@ export function UserProvider({ children }) {
     }
   }
 
+  const createPet = async (req) => {
+    const { uid, name, species, breed, birthDate, notes, profilePicture } = req
+    try {
+      const response = await apiServer.post('/create-pet', {
+        uid,
+        name,
+        species,
+        breed,
+        birthDate,
+        notes,
+        profilePicture,
+      })
+      setPets(response.data.pets)
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
+  }
+
   const getUser = async (uid) => {
     try {
       const response = await apiServer.post('/get-user', { uid })
       setUserName(response.data.name)
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
+  }
+
+  const getPets = async (uid) => {
+    try {
+      const response = await apiServer.post('/get-pets', { uid })
+      setPets(response.data)
     } catch (error) {
       setErrorMessage(error.message)
     }
@@ -35,12 +62,14 @@ export function UserProvider({ children }) {
   const value = {
     userName,
     setUserName,
-    errorMessage,
-    createUser,
     pets,
     setPets,
-    getUser,
+    errorMessage,
     loading,
+    createPet,
+    createUser,
+    getPets,
+    getUser,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
