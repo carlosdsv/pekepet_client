@@ -17,6 +17,7 @@ const UserName = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const language = window.navigator.language
 
   const onSubmit = async (data) => {
     try {
@@ -34,17 +35,25 @@ const UserName = () => {
   return (
     <div className='sign_container '>
       <p className='peke'>PEKE</p>
-      <p className='sign_title'>Name</p>
+      <p className='sign_title'>
+        {language === 'en-US' || language === 'en' ? 'Name' : 'Nombre'}
+      </p>
       {error && <span role='alert'>{error}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='name'>
-            YOUR NAME
+            {language === 'en-US' || language === 'en'
+              ? 'YOUR NAME'
+              : 'TU NOMBRE'}
           </label>
           <input
             id='name'
             type='text'
-            placeholder='First Name or Nickname'
+            placeholder={
+              language === 'en-US' || language === 'en'
+                ? 'First Name or Nickname'
+                : 'Primer nombre o sobrenombre'
+            }
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.name ? 'true' : 'false'}
@@ -53,7 +62,11 @@ const UserName = () => {
             })}
           />
           {errors.name && errors.email.type === 'required' && (
-            <span role='alert'>How should we call</span>
+            <span role='alert'>
+              {language === 'en-US' || language === 'en'
+                ? 'How should we call you?'
+                : 'Como te llamas?'}
+            </span>
           )}
         </div>
 
@@ -65,7 +78,9 @@ const UserName = () => {
               id='continue'
               type='submit'
             >
-              Continue
+              {language === 'en-US' || language === 'en'
+                ? 'Continue'
+                : 'Continuar'}
             </button>
           </label>
         </div>

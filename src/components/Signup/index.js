@@ -61,10 +61,18 @@ const Signup = () => {
             })}
           />
           {errors.email && errors.email.type === 'required' && (
-            <span role='alert'>Email is required.</span>
+            <span role='alert'>
+              {language === 'en-US' || language === 'en'
+                ? 'Email is required.'
+                : 'Se requiere un email'}
+            </span>
           )}
           {errors.email && errors.email.type === 'pattern' && (
-            <span role='alert'>Email is not valid.</span>
+            <span role='alert'>
+              {language === 'en-US' || language === 'en'
+                ? 'Email is not valid.'
+                : 'Email no es válido'}
+            </span>
           )}
         </div>
 
@@ -91,10 +99,18 @@ const Signup = () => {
             })}
           />
           {errors.password && errors.password.type === 'required' && (
-            <span role='alert'>Password is required.</span>
+            <span role='alert'>
+              {language === 'en-US' || language === 'en'
+                ? 'Password is required.'
+                : 'Se requiere una clave'}
+            </span>
           )}
           {errors.password && errors.password.type === 'minLength' && (
-            <span role='alert'>Password must have at least 6 characters.</span>
+            <span role='alert'>
+              {language === 'en-US' || language === 'en'
+                ? 'Password must have at least 6 characters.'
+                : 'La clave debe tener al menos 6 caracteres'}
+            </span>
           )}
         </div>
 
@@ -121,7 +137,11 @@ const Signup = () => {
           />
           {errors.confirm_password &&
             errors.confirm_password.type === 'validate' && (
-              <span role='alert'>The passwords do not match</span>
+              <span role='alert'>
+                {language === 'en-US' || language === 'en'
+                  ? 'The passwords do not match.'
+                  : 'Las claves no son iguales'}
+              </span>
             )}
         </div>
 
