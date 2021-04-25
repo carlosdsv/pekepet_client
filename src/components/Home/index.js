@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useUser } from '../../context/UserContext'
 import PetList from '../PetList'
+import Loading from '../Loading'
 import { gearOption, plus } from '../../images'
 import './styles.css'
 
@@ -10,6 +11,7 @@ const Home = () => {
   let history = useHistory()
   const { userName, pets, getUser, loading, getPets } = useUser()
   const { currentUser } = useAuth()
+  const language = window.navigator.language
 
   const handleAdd = () => {
     history.push('/add')
@@ -23,7 +25,7 @@ const Home = () => {
   }, [])
 
   if (loading) {
-    return <div style={{ color: 'red' }}>LOADING</div>
+    return <Loading />
   }
 
   return (
@@ -39,7 +41,9 @@ const Home = () => {
       <p className='peke'>PEKE</p>
       <div className='welcome'>
         <div>
-          <h1>WELCOME,</h1>
+          <h1>
+            {language === 'en-US' || language === 'en' ? 'WELCOME,' : 'HOLA,'}
+          </h1>
           <h1>{userName && userName.toLocaleUpperCase()}</h1>
         </div>
         <div className='new_button' onClick={handleAdd}>
@@ -48,7 +52,11 @@ const Home = () => {
       </div>
       <div className='pet_list_container'>
         {pets && pets.length === 0 ? (
-          <p>Start creating a new pet</p>
+          <p>
+            {language === 'en-US' || language === 'en'
+              ? 'Start creating a new pet.'
+              : 'Comienza creando una mascota.'}
+          </p>
         ) : (
           pets.map((pet, i) => <PetList key={i} pet={pet} />)
         )}

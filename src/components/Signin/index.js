@@ -13,6 +13,7 @@ const Signin = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const language = window.navigator.language
 
   const onSubmit = async (data) => {
     try {
@@ -29,17 +30,21 @@ const Signin = () => {
   return (
     <div className='sign_container '>
       <p className='peke'>PEKE</p>
-      <p className='sign_title'>Login</p>
+      <p className='sign_title'>
+        {language === 'en-US' || language === 'en' ? 'Login' : 'Iniciar Sesión'}
+      </p>
       {error && <span role='alert'>{error}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='email'>
-            YOUR EMAIL
+            {language === 'en-US' || language === 'en'
+              ? 'YOUR EMAIL'
+              : 'TU EMAIL'}
           </label>
           <input
             id='email'
             type='text'
-            placeholder='Email'
+            placeholder='email'
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.email ? 'true' : 'false'}
@@ -58,12 +63,16 @@ const Signin = () => {
 
         <div className='input_container'>
           <label className='input_title' htmlFor='password'>
-            YOUR PASSWORD
+            {language === 'en-US' || language === 'en'
+              ? 'YOUR PASSWORD'
+              : 'TU CLAVE'}
           </label>
           <input
             id='password'
             type='password'
-            placeholder='Password'
+            placeholder={
+              language === 'en-US' || language === 'en' ? 'password' : 'clave'
+            }
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.password ? 'true' : 'false'}
@@ -88,21 +97,31 @@ const Signin = () => {
               id='signin'
               type='submit'
             >
-              Sign In
+              {language === 'en-US' || language === 'en'
+                ? 'Sign In'
+                : 'Iniciar Sesión'}
             </button>
           </label>
         </div>
       </form>
       <div className='redirect_sign'>
-        <p className='redirect_sign_text'>Don't have an account?</p>
+        <p className='redirect_sign_text'>
+          {language === 'en-US' || language === 'en'
+            ? "Don't have an account?"
+            : 'No tienes cuenta?'}
+        </p>
 
         <Link className='sign_link' to='/signup'>
-          Register
+          {language === 'en-US' || language === 'en'
+            ? 'Register'
+            : 'Regístrate'}
         </Link>
       </div>
       <div className='redirect_sign'>
         <Link className='sign_link' to='/forgot-password'>
-          Forgot your password?
+          {language === 'en-US' || language === 'en'
+            ? 'Forgot your password?'
+            : 'Olvidaste tu clave?'}
         </Link>
       </div>
     </div>

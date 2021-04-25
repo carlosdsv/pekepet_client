@@ -18,6 +18,8 @@ const Signup = () => {
   const [loading, setLoading] = useState(false)
   const history = useHistory()
 
+  const language = window.navigator.language
+
   const onSubmit = async (data) => {
     try {
       setError('')
@@ -33,17 +35,23 @@ const Signup = () => {
   return (
     <div className='sign_container '>
       <p className='peke'>PEKE</p>
-      <p className='sign_title'>Sign Up</p>
+      {language === 'en-US' || language === 'en' ? (
+        <p className='sign_title'>Sign Up</p>
+      ) : (
+        <p className='sign_title'>Regístrate</p>
+      )}
       {error && <span role='alert'>{error}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='email'>
-            YOUR EMAIL
+            {language === 'en-US' || language === 'en'
+              ? 'YOUR EMAIL'
+              : 'TU EMAIL'}
           </label>
           <input
             id='email'
             type='text'
-            placeholder='Email'
+            placeholder='email'
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.email ? 'true' : 'false'}
@@ -62,12 +70,18 @@ const Signup = () => {
 
         <div className='input_container'>
           <label className='input_title' htmlFor='password'>
-            YOUR PASSWORD
+            <label className='input_title' htmlFor='email'>
+              {language === 'en-US' || language === 'en'
+                ? 'YOUR PASSWORD'
+                : 'TU CLAVE'}
+            </label>
           </label>
           <input
             id='password'
             type='password'
-            placeholder='Password'
+            placeholder={
+              language === 'en-US' || language === 'en' ? 'password' : 'clave'
+            }
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.password ? 'true' : 'false'}
@@ -86,12 +100,18 @@ const Signup = () => {
 
         <div className='input_container'>
           <label className='input_title' htmlFor='confirm_password'>
-            CONFIRM PASSWORD
+            {language === 'en-US' || language === 'en'
+              ? 'CONFIRM PASSWORD'
+              : 'CONFIRMAR CLAVE'}
           </label>
           <input
             id='confirm_password'
             type='password'
-            placeholder='Repeat Password'
+            placeholder={
+              language === 'en-US' || language === 'en'
+                ? 'repeat password'
+                : 'repetir clave'
+            }
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.confirm_password ? 'true' : 'false'}
@@ -113,15 +133,23 @@ const Signup = () => {
               id='signup'
               type='submit'
             >
-              Sign Up
+              {language === 'en-US' || language === 'en'
+                ? 'Sign Up'
+                : 'Registrarse'}
             </button>
           </label>
         </div>
       </form>
       <div className='redirect_sign'>
-        <p className='redirect_sign_text'>Already have an account?</p>
+        <p className='redirect_sign_text'>
+          {language === 'en-US' || language === 'en'
+            ? 'Already have an account?'
+            : 'Ya tienes cuenta?'}
+        </p>
         <Link className='sign_link' to='/signin'>
-          Login
+          {language === 'en-US' || language === 'en'
+            ? 'Log in'
+            : 'Iniciar sesion'}
         </Link>
       </div>
     </div>

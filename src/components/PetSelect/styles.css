@@ -1,6 +1,7 @@
 .pet_select_container {
   background: var(--main-background-color);
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   padding-left: 5vw;
   padding-right: 5vw;
   padding-top: 3.5rem;
@@ -46,6 +47,10 @@
   color: var(--secondary-text-color);
   padding: 0.3rem 1rem 0.3rem 1rem;
   cursor: pointer;
+}
+.list_events_card {
+  max-height: calc(var(--vh, 1vh) * 45);
+  overflow: scroll;
 }
 .add_event {
   position: absolute;

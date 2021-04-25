@@ -62,10 +62,12 @@ const PetSelect = () => {
           </p>
         </div>
       </div>
-      {db.events[pet.name] &&
-        db.events[pet.name][selected].map((event) => {
-          return <EventCard event={event} />
-        })}
+      <div className='list_events_card'>
+        {db.events[pet.name] &&
+          db.events[pet.name][selected].map((event) => {
+            return <EventCard event={event} />
+          })}
+      </div>
       <img className='add_event' src={plus} alt='add event' />
     </div>
   )

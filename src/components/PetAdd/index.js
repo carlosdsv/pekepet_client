@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useAuth } from '../../context/AuthContext'
 import { useUser } from '../../context/UserContext'
 import { backArrow } from '../../images'
+import Loading from '../Loading'
 import './styles.css'
 
 const PetAdd = () => {
@@ -14,16 +15,23 @@ const PetAdd = () => {
   } = useForm()
   const { currentUser } = useAuth()
   const { createPet } = useUser()
-
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
+  const [species, setSpecies] = useState('')
   let history = useHistory()
+  const language = window.navigator.language
+  const [date, setDate] = useState('')
 
   const handleBack = () => {
     history.goBack()
   }
-
+  const handleInputDate = (e) => {
+    setDate(e.target.value)
+  }
+  const handleSpeciesSelect = (e) => {
+    setSpecies(e.target.value)
+  }
+  console.log(species)
   const onSubmit = async (data) => {
     try {
       setError('')
@@ -31,9 +39,9 @@ const PetAdd = () => {
       const req = {
         uid: currentUser.uid,
         name: data.name,
-        species: data.species,
+        species: species,
         breed: data.breed,
-        birthDate: data.birthDate,
+        birthDate: date,
         notes: data.notes,
         profilePicture:
           'https://images.unsplash.com/photo-1570566998157-0df9e6f8d5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=675&q=80',
@@ -46,6 +54,8 @@ const PetAdd = () => {
     setLoading(false)
   }
 
+  if (loading) return <Loading />
+
   return (
     <div className='pet_add_container'>
       <img
@@ -54,19 +64,31 @@ const PetAdd = () => {
         src={backArrow}
         alt={backArrow}
       />
-      <div className='picture_container'>Select Picture</div>
+      <img
+        className='pet_details_picture'
+        src='https://images.unsplash.com/photo-1570566998157-0df9e6f8d5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=675&q=80'
+        alt='pet'
+      />
 
-      <h2 className='create_new_pet_title'>CREATE NEW PET</h2>
+      <h2 className='create_new_pet_title'>
+        {language === 'en-US' || language === 'en'
+          ? 'CREATE PET'
+          : 'CREAR MASCOTA'}
+      </h2>
       {error && <span role='alert'>{error}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='name'>
-            NAME
+            {language === 'en-US' || language === 'en' ? 'NAME' : 'NOMBRE'}
           </label>
           <input
             id='name'
             type='text'
-            placeholder='Pet Name'
+            placeholder={
+              language === 'en-US' || language === 'en'
+                ? 'pet name'
+                : 'nombre de la mascota'
+            }
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.name ? 'true' : 'false'}
@@ -81,32 +103,52 @@ const PetAdd = () => {
 
         <div className='input_container'>
           <label className='input_title' htmlFor='species'>
-            SPECIES
+            {language === 'en-US' || language === 'en' ? 'SPECIES' : 'ESPECIE'}
           </label>
-          <input
+          <select
             id='species'
-            type='text'
-            placeholder='Pet Species'
-            autoComplete='off'
-            autoCapitalize='off'
-            aria-invalid={errors.species ? 'true' : 'false'}
-            {...register('species', {
-              required: true,
-            })}
-          />
-          {errors.species && errors.species.type === 'required' && (
-            <span role='alert'>Pet species is required.</span>
-          )}
+            value={species}
+            onChange={handleSpeciesSelect}
+            required
+          >
+            <option value=''>
+              {language === 'en-US' || language === 'en'
+                ? '--select--'
+                : '--seleccionar--'}
+            </option>
+
+            <option
+              value={
+                language === 'en-US' || language === 'en' ? 'dog' : 'perro'
+              }
+            >
+              {language === 'en-US' || language === 'en' ? 'dog' : 'perro'}
+            </option>
+            <option
+              value={language === 'en-US' || language === 'en' ? 'cat' : 'gato'}
+            >
+              {language === 'en-US' || language === 'en' ? 'cat' : 'gato'}
+            </option>
+            <option
+              value={language === 'en-US' || language === 'en' ? 'fish' : 'pez'}
+            >
+              {language === 'en-US' || language === 'en' ? 'fish' : 'pez'}
+            </option>
+          </select>
         </div>
 
         <div className='input_container'>
           <label className='input_title' htmlFor='breed'>
-            BREED
+            {language === 'en-US' || language === 'en' ? 'BREED' : 'RAZA'}
           </label>
           <input
             id='breed'
             type='text'
-            placeholder='Pet Breed'
+            placeholder={
+              language === 'en-US' || language === 'en'
+                ? 'pet breed'
+                : 'raza de la mascota'
+            }
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.breed ? 'true' : 'false'}
@@ -121,32 +163,33 @@ const PetAdd = () => {
 
         <div className='input_container'>
           <label className='input_title' htmlFor='birthDate'>
-            BIRTHDATE
+            {language === 'en-US' || language === 'en'
+              ? 'BIRTHDATE'
+              : 'FECHA NACIMIENTO'}
           </label>
           <input
+            onChange={handleInputDate}
             id='birthDate'
-            type='text'
-            placeholder='Pet Birthdate'
-            autoComplete='off'
-            autoCapitalize='off'
-            aria-invalid={errors.birthDate ? 'true' : 'false'}
-            {...register('birthDate', {
-              required: true,
-            })}
+            type='date'
+            required
+            value={date}
           />
-          {errors.birthDate && errors.birthDate.type === 'required' && (
-            <span role='alert'>Pet birthDate is required.</span>
-          )}
         </div>
 
         <div className='input_container'>
           <label className='input_title' htmlFor='notes'>
-            ADITIONAL NOTES
+            {language === 'en-US' || language === 'en'
+              ? 'ADITIONAL NOTES'
+              : 'NOTAS ADICIONALES'}
           </label>
           <input
             id='notes'
             type='text'
-            placeholder='e.g. weight, alergies...'
+            placeholder={
+              language === 'en-US' || language === 'en'
+                ? 'e.g. weight, alergies...'
+                : 'ej. peso, alergias...'
+            }
             autoComplete='off'
             autoCapitalize='off'
             aria-invalid={errors.notes ? 'true' : 'false'}
@@ -158,7 +201,6 @@ const PetAdd = () => {
             <span role='alert'>Pet notes is required.</span>
           )}
         </div>
-
         <div>
           <label htmlFor='save'>
             <button
@@ -167,7 +209,7 @@ const PetAdd = () => {
               id='save'
               type='submit'
             >
-              SAVE
+              {language === 'en-US' || language === 'en' ? 'SAVE' : 'GUARDAR'}
             </button>
           </label>
         </div>

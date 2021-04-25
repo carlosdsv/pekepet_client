@@ -8,6 +8,7 @@ const PetList = ({ pet }) => {
   const handleSelect = () => {
     history.push('/petselect', pet)
   }
+
   return (
     <div className='pet_list_card' onClick={handleSelect}>
       <img className='pet_picture' src={pet.profilePicture} alt={pet.name} />

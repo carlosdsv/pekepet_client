@@ -37,20 +37,23 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 }
 
 const App = () => {
+  let vh = window.innerHeight * 0.01
+  document.documentElement.style.setProperty('--vh', `${vh}px`)
+
   return (
     <Router>
       <AuthProvider>
         <UserProvider>
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
-            <Route path='/add' component={PetAdd} />
+            <PrivateRoute path='/add' component={PetAdd} />
             <Route path='/forgot-password' component={ForgotPassword} />
-            <Route path='/options' component={Options} />
-            <Route path='/petselect' component={PetSelect} />
-            <Route path='/petdetails' component={PetDetails} />
+            <PrivateRoute path='/options' component={Options} />
+            <PrivateRoute path='/petselect' component={PetSelect} />
+            <PrivateRoute path='/petdetails' component={PetDetails} />
             <Route path='/signin' component={Signin} />
             <Route path='/signup' component={Signup} />
-            <Route path='/user-name' component={UserName} />
+            <PrivateRoute path='/user-name' component={UserName} />
           </Switch>
         </UserProvider>
       </AuthProvider>

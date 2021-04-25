@@ -13,6 +13,7 @@ const ForgotPassword = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
+  const language = window.navigator.language
 
   const onSubmit = async (data) => {
     try {
@@ -30,13 +31,19 @@ const ForgotPassword = () => {
   return (
     <div className='sign_container '>
       <p className='peke'>PEKE</p>
-      <p className='sign_title'>Reset Password</p>
+      <p className='sign_title'>
+        {language === 'en-US' || language === 'en'
+          ? 'Reset Password'
+          : 'Reestablecer Clave'}
+      </p>
       {error && <span role='alert'>{error}</span>}
       {message && <span role='alert'>{message}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
           <label className='input_title' htmlFor='email'>
-            YOUR EMAIL
+            {language === 'en-US' || language === 'en'
+              ? 'YOUR EMAIL'
+              : 'TU EMAIL'}
           </label>
           <input
             id='email'
@@ -66,21 +73,32 @@ const ForgotPassword = () => {
               id='signin'
               type='submit'
             >
-              Reset Password
+              {language === 'en-US' || language === 'en'
+                ? 'Reset Password'
+                : 'Reestablecer Clave'}
             </button>
           </label>
         </div>
       </form>
       <div className='redirect_sign'>
-        <p className='redirect_sign_text'>Don't have an account?</p>
+        <p className='redirect_sign_text'>
+          {' '}
+          {language === 'en-US' || language === 'en'
+            ? "Don't have an account?"
+            : 'No tienes cuenta?'}
+        </p>
 
         <Link className='sign_link' to='/signup'>
-          Register
+          {language === 'en-US' || language === 'en'
+            ? 'Register'
+            : 'Regístrate'}
         </Link>
       </div>
       <div className='redirect_sign'>
         <Link className='sign_link' to='/signin'>
-          Log In
+          {language === 'en-US' || language === 'en'
+            ? 'Log In'
+            : 'Iniciar Sesión'}
         </Link>
       </div>
     </div>

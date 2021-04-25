@@ -9,6 +9,7 @@ const Options = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const language = window.navigator.language
 
   const handleLogout = async (data) => {
     try {
@@ -40,7 +41,9 @@ const Options = () => {
         className='signout_button'
         type='submit'
       >
-        Sign Out
+        {language === 'en-US' || language === 'en'
+          ? 'Sign Out,'
+          : 'Cerrar Sesión'}
       </button>
     </div>
   )
