@@ -6,7 +6,7 @@ const PetList = ({ pet }) => {
   let history = useHistory()
 
   const handleSelect = () => {
-    history.push('/petselect', pet)
+    history.push('/pet-select', pet)
   }
 
   return (

@@ -8,6 +8,7 @@ import {
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { UserProvider } from './context/UserContext'
 import {
+  CreateEvent,
   ForgotPassword,
   Home,
   PetAdd,
@@ -48,9 +49,10 @@ const App = () => {
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute path='/add' component={PetAdd} />
             <Route path='/forgot-password' component={ForgotPassword} />
+            <PrivateRoute path='/create-event' component={CreateEvent} />
             <PrivateRoute path='/options' component={Options} />
-            <PrivateRoute path='/petselect' component={PetSelect} />
-            <PrivateRoute path='/petdetails' component={PetDetails} />
+            <PrivateRoute path='/pet-select' component={PetSelect} />
+            <PrivateRoute path='/pet-details' component={PetDetails} />
             <Route path='/signin' component={Signin} />
             <Route path='/signup' component={Signup} />
             <PrivateRoute path='/user-name' component={UserName} />

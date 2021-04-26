@@ -36,8 +36,9 @@ const PetAdd = () => {
     try {
       setError('')
       setLoading(true)
-      const req = {
+      const petData = {
         uid: currentUser.uid,
+        petId: Date.now().toString(),
         name: data.name,
         species: species,
         breed: data.breed,
@@ -46,7 +47,7 @@ const PetAdd = () => {
         profilePicture:
           'https://images.unsplash.com/photo-1570566998157-0df9e6f8d5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=675&q=80',
       }
-      await createPet(req)
+      await createPet(petData)
       history.push('/')
     } catch (err) {
       setError(err.message)

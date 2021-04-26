@@ -50,8 +50,8 @@ body {
 .back_arrow {
   position: absolute;
   top: 0;
-  left: 5vw;
-  margin-top: 3.5rem;
+  left: 2.5vw;
+  margin-top: 1.5rem;
   cursor: pointer;
 }
 div,

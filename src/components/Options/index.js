@@ -42,7 +42,7 @@ const Options = () => {
         type='submit'
       >
         {language === 'en-US' || language === 'en'
-          ? 'Sign Out,'
+          ? 'Sign Out'
           : 'Cerrar Sesión'}
       </button>
     </div>

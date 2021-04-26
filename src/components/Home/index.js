@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useUser } from '../../context/UserContext'
@@ -9,9 +9,10 @@ import './styles.css'
 
 const Home = () => {
   let history = useHistory()
-  const { userName, pets, getUser, loading, getPets } = useUser()
+  const { userName, pets, getUser, loading, setLoading, getPets } = useUser()
   const { currentUser } = useAuth()
   const language = window.navigator.language
+  const [petsState, setPetsState] = useState(pets)
 
   const handleAdd = () => {
     history.push('/add')
@@ -20,8 +21,15 @@ const Home = () => {
     history.push('/options')
   }
   useEffect(() => {
-    getUser(currentUser.uid)
-    getPets(currentUser.uid)
+    setLoading(true)
+    if (userName === '') {
+      getUser(currentUser.uid)
+      getPets(currentUser.uid)
+      setPetsState(pets)
+    } else {
+      getPets(currentUser.uid)
+      setPetsState(pets)
+    }
   }, [])
 
   if (loading) {

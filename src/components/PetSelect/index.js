@@ -1,14 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useUser } from '../../context/UserContext'
 import { backArrow, plus } from '../../images'
-import db from '../../mock-data'
 import EventCard from '../EventCard'
+import Loading from '../Loading'
+
 import './styles.css'
 
 const PetSelect = () => {
   let history = useHistory()
   const pet = history.location.state
+  const { events, loading, setLoading, getEvents } = useUser()
   const [selected, setSelected] = useState('recent')
+
+  useEffect(() => {
+    setLoading(true)
+    getEvents(pet.petId)
+    setLoading(false)
+  }, [])
 
   const handleSelect = (selectEvent) => {
     setSelected(selectEvent)
@@ -17,7 +26,13 @@ const PetSelect = () => {
     history.push('/')
   }
   const handlePetDetails = () => {
-    history.push('/petdetails', pet)
+    history.push('/pet-details', pet)
+  }
+  const handleCreateEvent = () => {
+    history.push('/create-event', pet)
+  }
+  if (loading) {
+    return <Loading />
   }
 
   return (
@@ -50,25 +65,35 @@ const PetSelect = () => {
             Recent
           </p>
         </div>
-        <div onClick={() => handleSelect('upcomming')}>
+        <div onClick={() => handleSelect('upcoming')}>
           <p
             className={
-              selected === 'upcomming'
+              selected === 'upcoming'
                 ? 'events_options_selected'
                 : 'events_options_not_selected'
             }
           >
-            Upcomming
+            Upcoming
           </p>
         </div>
       </div>
       <div className='list_events_card'>
-        {db.events[pet.name] &&
-          db.events[pet.name][selected].map((event) => {
-            return <EventCard event={event} />
+        {events &&
+          Object.values(events).map((event) => {
+            if (selected === 'recent' && event.upcoming === false) {
+              return <EventCard event={event} />
+            } else if (selected === 'upcoming' && event.upcoming === true) {
+              return <EventCard event={event} />
+            }
+            return null
           })}
       </div>
-      <img className='add_event' src={plus} alt='add event' />
+      <img
+        onClick={handleCreateEvent}
+        className='add_event'
+        src={plus}
+        alt='add event'
+      />
     </div>
   )
 }

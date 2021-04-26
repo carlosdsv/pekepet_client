@@ -10,8 +10,17 @@ export function useUser() {
 export function UserProvider({ children }) {
   const [userName, setUserName] = useState('')
   const [pets, setPets] = useState([])
+  const [events, setEvents] = useState()
   const [loading, setLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+
+  const createEvent = async (eventData) => {
+    try {
+      await apiServer.post('/create-event', eventData)
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
+  }
 
   const createUser = async (name, uid) => {
     try {
@@ -22,22 +31,22 @@ export function UserProvider({ children }) {
     }
   }
 
-  const createPet = async (req) => {
-    const { uid, name, species, breed, birthDate, notes, profilePicture } = req
+  const createPet = async (petData) => {
     try {
-      await apiServer.post('/create-pet', {
-        uid,
-        name,
-        species,
-        breed,
-        birthDate,
-        notes,
-        profilePicture,
-      })
-      getPets(uid)
+      await apiServer.post('/create-pet', petData)
     } catch (error) {
       setErrorMessage(error.message)
     }
+  }
+
+  const getEvents = async (petId) => {
+    try {
+      const response = await apiServer.post('/get-events', { petId })
+      setEvents(response.data)
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
+    setLoading(false)
   }
 
   const getUser = async (uid) => {
@@ -60,14 +69,18 @@ export function UserProvider({ children }) {
   }
 
   const value = {
+    events,
     userName,
     setUserName,
     pets,
     setPets,
     errorMessage,
     loading,
+    setLoading,
+    createEvent,
     createPet,
     createUser,
+    getEvents,
     getPets,
     getUser,
   }
