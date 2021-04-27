@@ -18,20 +18,22 @@ const PetAdd = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [species, setSpecies] = useState('')
+  const [notes, setNotes] = useState('')
   let history = useHistory()
   const language = window.navigator.language
-  const [date, setDate] = useState('')
 
   const handleBack = () => {
     history.goBack()
   }
-  const handleInputDate = (e) => {
-    setDate(e.target.value)
-  }
+
   const handleSpeciesSelect = (e) => {
     setSpecies(e.target.value)
   }
-  console.log(species)
+
+  const handleNotes = (e) => {
+    setNotes(e.target.value)
+  }
+
   const onSubmit = async (data) => {
     try {
       setError('')
@@ -42,8 +44,8 @@ const PetAdd = () => {
         name: data.name,
         species: species,
         breed: data.breed,
-        birthDate: date,
-        notes: data.notes,
+        birthDate: data.birthDate,
+        notes: notes,
         profilePicture:
           'https://images.unsplash.com/photo-1570566998157-0df9e6f8d5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=675&q=80',
       }
@@ -70,6 +72,11 @@ const PetAdd = () => {
         src='https://images.unsplash.com/photo-1570566998157-0df9e6f8d5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=675&q=80'
         alt='pet'
       />
+      <p style={{ fontSize: '.8rem', alignSelf: 'center' }}>
+        {language === 'en-US' || language === 'en'
+          ? 'Upload picture under construction'
+          : 'Subir foto está en construcción'}
+      </p>
 
       <h2 className='create_new_pet_title'>
         {language === 'en-US' || language === 'en'
@@ -169,12 +176,30 @@ const PetAdd = () => {
               : 'FECHA NACIMIENTO'}
           </label>
           <input
-            onChange={handleInputDate}
             id='birthDate'
             type='date'
-            required
-            value={date}
+            aria-invalid={errors.birthDate ? 'true' : 'false'}
+            {...register('birthDate', {
+              required: true,
+              validate: {
+                validDate: (value) => new Date() > new Date(value),
+              },
+            })}
           />
+          {errors.birthDate && errors.birthDate.type === 'required' && (
+            <span role='alert'>
+              {language === 'en-US' || language === 'en'
+                ? 'Birth date is required.'
+                : 'Se requiere fecha de nacimiento'}
+            </span>
+          )}
+          {errors.birthDate && errors.birthDate.type === 'validDate' && (
+            <span role='alert'>
+              {language === 'en-US' || language === 'en'
+                ? 'Future date not valid.'
+                : 'Fecha futura no es válida'}
+            </span>
+          )}
         </div>
 
         <div className='input_container'>
@@ -184,6 +209,7 @@ const PetAdd = () => {
               : 'NOTAS ADICIONALES'}
           </label>
           <input
+            onChange={handleNotes}
             id='notes'
             type='text'
             placeholder={
@@ -193,14 +219,8 @@ const PetAdd = () => {
             }
             autoComplete='off'
             autoCapitalize='off'
-            aria-invalid={errors.notes ? 'true' : 'false'}
-            {...register('notes', {
-              required: true,
-            })}
+            value={notes}
           />
-          {errors.notes && errors.notes.type === 'required' && (
-            <span role='alert'>Pet notes is required.</span>
-          )}
         </div>
         <div>
           <label htmlFor='save'>

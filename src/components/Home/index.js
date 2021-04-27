@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useUser } from '../../context/UserContext'
@@ -12,7 +12,6 @@ const Home = () => {
   const { userName, pets, getUser, loading, setLoading, getPets } = useUser()
   const { currentUser } = useAuth()
   const language = window.navigator.language
-  const [petsState, setPetsState] = useState(pets)
 
   const handleAdd = () => {
     history.push('/add')
@@ -23,14 +22,16 @@ const Home = () => {
   useEffect(() => {
     setLoading(true)
     if (userName === '') {
+      console.log('Home: username empty')
       getUser(currentUser.uid)
       getPets(currentUser.uid)
-      setPetsState(pets)
     } else {
+      console.log('Home: username exist')
       getPets(currentUser.uid)
-      setPetsState(pets)
     }
   }, [])
+  console.log('Home: pets')
+  console.log(pets)
 
   if (loading) {
     return <Loading />

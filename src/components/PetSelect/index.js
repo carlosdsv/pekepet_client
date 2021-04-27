@@ -12,11 +12,13 @@ const PetSelect = () => {
   const pet = history.location.state
   const { events, loading, setLoading, getEvents } = useUser()
   const [selected, setSelected] = useState('recent')
-
+  console.log('PetSelect: events')
+  console.log(events)
   useEffect(() => {
-    setLoading(true)
+    console.log('PetSelect: useEffect')
     getEvents(pet.petId)
     setLoading(false)
+    console.log('PetSelect: getEvents()')
   }, [])
 
   const handleSelect = (selectEvent) => {
@@ -31,6 +33,10 @@ const PetSelect = () => {
   const handleCreateEvent = () => {
     history.push('/create-event', pet)
   }
+  const generateKey = (pre) => {
+    return `${pre}_${new Date().getTime()}`
+  }
+
   if (loading) {
     return <Loading />
   }
@@ -81,9 +87,13 @@ const PetSelect = () => {
         {events &&
           Object.values(events).map((event) => {
             if (selected === 'recent' && event.upcoming === false) {
-              return <EventCard event={event} />
+              return (
+                <EventCard event={event} key={generateKey(event.description)} />
+              )
             } else if (selected === 'upcoming' && event.upcoming === true) {
-              return <EventCard event={event} />
+              return (
+                <EventCard event={event} key={generateKey(event.description)} />
+              )
             }
             return null
           })}

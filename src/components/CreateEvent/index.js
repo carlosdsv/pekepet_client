@@ -39,6 +39,7 @@ const CreateEvent = () => {
     return new Date() < new Date(date)
   }
   const onSubmit = async (data) => {
+    console.log('createEvent: submit')
     setIsCreatingevent(true)
     setError('')
     setLoading(true)
@@ -52,13 +53,15 @@ const CreateEvent = () => {
       notes: notes,
     }
     try {
-      history.push('/pet-select', pet)
       await createEvent(petData)
       setIsCreatingevent(false)
+      history.push('/pet-select', pet)
+      console.log('CreateEvent: createEvent()')
     } catch (err) {
       setError(err.message)
     }
     setLoading(false)
+    console.log('CreateEvent: setLoading()')
   }
 
   if (loading) return <Loading />

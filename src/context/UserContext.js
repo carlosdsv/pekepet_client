@@ -15,8 +15,10 @@ export function UserProvider({ children }) {
   const [errorMessage, setErrorMessage] = useState('')
 
   const createEvent = async (eventData) => {
+    console.log('UserContext: createEvent=>')
     try {
       await apiServer.post('/create-event', eventData)
+      console.log('UserContext: post: event created')
     } catch (error) {
       setErrorMessage(error.message)
     }
@@ -70,6 +72,7 @@ export function UserProvider({ children }) {
 
   const value = {
     events,
+    setEvents,
     userName,
     setUserName,
     pets,

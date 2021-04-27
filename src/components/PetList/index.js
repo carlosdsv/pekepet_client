@@ -1,11 +1,15 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useUser } from '../../context/UserContext'
+
 import './styles.css'
 
 const PetList = ({ pet }) => {
   let history = useHistory()
+  const { setLoading } = useUser()
 
   const handleSelect = () => {
+    setLoading(true)
     history.push('/pet-select', pet)
   }
 
