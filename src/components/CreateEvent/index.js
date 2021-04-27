@@ -1,12 +1,38 @@
 import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useUser } from '../../context/UserContext'
-import { backArrow } from '../../images'
+import { backArrow, dog, pills, seringe } from '../../images'
 import Loading from '../Loading'
 import './styles.css'
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    maxWidth: '6rem',
+    color: theme.color,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  select: {
+    '&:before': {
+      borderColor: 'var(--secondary-text-color)',
+    },
+    '&:after': {
+      borderColor: 'var(--white)',
+    },
+  },
+  icon: {
+    fill: 'var(--white)',
+  },
+}))
 
 const CreateEvent = () => {
+  const classes = useStyles()
   const {
     register,
     handleSubmit,
@@ -39,7 +65,6 @@ const CreateEvent = () => {
     return new Date() < new Date(date)
   }
   const onSubmit = async (data) => {
-    console.log('createEvent: submit')
     setIsCreatingevent(true)
     setError('')
     setLoading(true)
@@ -56,12 +81,10 @@ const CreateEvent = () => {
       await createEvent(petData)
       setIsCreatingevent(false)
       history.push('/pet-select', pet)
-      console.log('CreateEvent: createEvent()')
     } catch (err) {
       setError(err.message)
     }
     setLoading(false)
-    console.log('CreateEvent: setLoading()')
   }
 
   if (loading) return <Loading />
@@ -88,27 +111,43 @@ const CreateEvent = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
-          <label className='input_title' htmlFor='type'>
-            {language === 'en-US' || language === 'en' ? 'TYPE' : 'TIPO'}
-          </label>
-          <select id='type' value={type} onChange={handleTypeSelect} required>
-            <option value=''>
-              {language === 'en-US' || language === 'en'
-                ? '--select--'
-                : '--seleccionar--'}
-            </option>
-            <option value='vaccine'>
-              {language === 'en-US' || language === 'en' ? 'Vaccine' : 'Vacuna'}
-            </option>
-            <option value='deworm'>
-              {language === 'en-US' || language === 'en'
-                ? 'Deworm'
-                : 'Desparacito'}
-            </option>
-            <option value='other'>
-              {language === 'en-US' || language === 'en' ? 'Other' : 'Otro'}
-            </option>
-          </select>
+          <FormControl required className={classes.formControl}>
+            <InputLabel
+              style={{
+                fontSize: '0.9rem',
+                fontWeight: 'bolder',
+                color: 'var(--secondary-text-color)',
+                marginBottom: '0.5rem',
+              }}
+              id='demo-simple-select-outlined-label'
+            >
+              {language === 'en-US' || language === 'en' ? 'TYPE' : 'TIPO'}
+            </InputLabel>
+            <Select
+              className={classes.select}
+              labelId='demo-simple-select-outlined-label'
+              id='demo-simple-select-outlined'
+              value={type}
+              onChange={handleTypeSelect}
+              displayEmpty
+              label='Age'
+              inputProps={{
+                classes: {
+                  icon: classes.icon,
+                },
+              }}
+            >
+              <MenuItem value='vaccine'>
+                <img src={seringe} alt='vaccine' />
+              </MenuItem>
+              <MenuItem value='deworm'>
+                <img src={pills} alt='deworm' />
+              </MenuItem>
+              <MenuItem value='other'>
+                <img src={dog} alt='other' />
+              </MenuItem>
+            </Select>
+          </FormControl>
         </div>
 
         <div className='input_container'>

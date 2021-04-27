@@ -22,16 +22,12 @@ const Home = () => {
   useEffect(() => {
     setLoading(true)
     if (userName === '') {
-      console.log('Home: username empty')
       getUser(currentUser.uid)
       getPets(currentUser.uid)
     } else {
-      console.log('Home: username exist')
       getPets(currentUser.uid)
     }
   }, [])
-  console.log('Home: pets')
-  console.log(pets)
 
   if (loading) {
     return <Loading />

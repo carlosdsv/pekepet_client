@@ -12,13 +12,9 @@ const PetSelect = () => {
   const pet = history.location.state
   const { events, loading, setLoading, getEvents } = useUser()
   const [selected, setSelected] = useState('recent')
-  console.log('PetSelect: events')
-  console.log(events)
   useEffect(() => {
-    console.log('PetSelect: useEffect')
     getEvents(pet.petId)
     setLoading(false)
-    console.log('PetSelect: getEvents()')
   }, [])
 
   const handleSelect = (selectEvent) => {
