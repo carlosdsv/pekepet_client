@@ -119,18 +119,18 @@ const CreateEvent = () => {
                 color: 'var(--secondary-text-color)',
                 marginBottom: '0.5rem',
               }}
-              id='demo-simple-select-outlined-label'
+              id='type'
             >
               {language === 'en-US' || language === 'en' ? 'TYPE' : 'TIPO'}
             </InputLabel>
             <Select
               className={classes.select}
-              labelId='demo-simple-select-outlined-label'
-              id='demo-simple-select-outlined'
+              labelId='type'
+              id='type'
               value={type}
               onChange={handleTypeSelect}
               displayEmpty
-              label='Age'
+              label='type'
               inputProps={{
                 classes: {
                   icon: classes.icon,

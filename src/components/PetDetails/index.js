@@ -17,7 +17,7 @@ const PetDetails = () => {
         onClick={handleBack}
         className='back_arrow'
         src={backArrow}
-        alt={backArrow}
+        alt='back arrow'
       />
       <img
         className='pet_details_picture'

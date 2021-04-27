@@ -12,6 +12,7 @@ const PetSelect = () => {
   const pet = history.location.state
   const { events, loading, setLoading, getEvents } = useUser()
   const [selected, setSelected] = useState('recent')
+  const language = window.navigator.language
   useEffect(() => {
     getEvents(pet.petId)
     setLoading(false)
@@ -54,7 +55,9 @@ const PetSelect = () => {
         />
         <h1 className='welcome_text'>{pet.name}</h1>
       </div>
-      <h1 className='events_title'>EVENTS</h1>
+      <h1 className='events_title'>
+        {language === 'en-US' || language === 'en' ? 'EVENTS' : 'EVENTOS'}
+      </h1>
       <div className='events_options'>
         <div onClick={() => handleSelect('recent')}>
           <p
@@ -64,7 +67,7 @@ const PetSelect = () => {
                 : 'events_options_not_selected'
             }
           >
-            Recent
+            {language === 'en-US' || language === 'en' ? 'Recent' : 'Recientes'}
           </p>
         </div>
         <div onClick={() => handleSelect('upcoming')}>
@@ -75,7 +78,9 @@ const PetSelect = () => {
                 : 'events_options_not_selected'
             }
           >
-            Upcoming
+            {language === 'en-US' || language === 'en'
+              ? 'Upcoming'
+              : 'Próximos'}
           </p>
         </div>
       </div>
@@ -84,11 +89,19 @@ const PetSelect = () => {
           Object.values(events).map((event) => {
             if (selected === 'recent' && event.upcoming === false) {
               return (
-                <EventCard event={event} key={generateKey(event.description)} />
+                <EventCard
+                  event={event}
+                  pet={pet}
+                  key={generateKey(event.description)}
+                />
               )
             } else if (selected === 'upcoming' && event.upcoming === true) {
               return (
-                <EventCard event={event} key={generateKey(event.description)} />
+                <EventCard
+                  event={event}
+                  pet={pet}
+                  key={generateKey(event.description)}
+                />
               )
             }
             return null

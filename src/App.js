@@ -18,6 +18,7 @@ import {
   Signup,
   Options,
   UserName,
+  EventDetails,
 } from './components'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -50,6 +51,7 @@ const App = () => {
             <PrivateRoute path='/add' component={PetAdd} />
             <Route path='/forgot-password' component={ForgotPassword} />
             <PrivateRoute path='/create-event' component={CreateEvent} />
+            <PrivateRoute path='/event-details' component={EventDetails} />
             <PrivateRoute path='/options' component={Options} />
             <PrivateRoute path='/pet-select' component={PetSelect} />
             <PrivateRoute path='/pet-details' component={PetDetails} />

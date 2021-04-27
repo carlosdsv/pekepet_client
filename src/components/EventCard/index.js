@@ -1,8 +1,12 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+
 import './styles.css'
 import { dog, pills, seringe } from '../../images'
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, pet }) => {
+  let history = useHistory()
+
   const styleSelector = (type, selector) => {
     if (type === 'other') {
       if (selector === 'icon') {
@@ -34,9 +38,12 @@ const EventCard = ({ event }) => {
     if (typeof text !== 'string') return ''
     return text.charAt(0).toUpperCase() + text.slice(1)
   }
+  const handleEventDetails = () => {
+    history.push('/event-details', { event, pet })
+  }
 
   return (
-    <div className='event_container'>
+    <div onClick={handleEventDetails} className='event_container'>
       <div className='event_container_left'>
         <img
           className='event_container_image'
