@@ -24,9 +24,28 @@
   cursor: pointer;
   flex-wrap: wrap;
 }
+.create_pet_picture {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: rgba(255, 255, 255, 1);
+  background-color: var(--secondary-background-color);
+  border-style: solid;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .create_new_pet_title {
   align-self: flex-start;
   color: var(--secondary-text-color);
   margin-top: 1rem;
   font-weight: bold;
+}
+.uploading_picture {
+  align-self: center;
+  font-size: 0.7rem;
+  position: absolute;
+  top: 9.5rem;
 }

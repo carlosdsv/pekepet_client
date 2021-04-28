@@ -1,13 +1,29 @@
 import React, { useState } from 'react'
+import app from '../../firebase'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../../context/AuthContext'
 import { useUser } from '../../context/UserContext'
+import { makeStyles } from '@material-ui/core/styles'
+import { IconButton } from '@material-ui/core'
+import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import { backArrow } from '../../images'
 import Loading from '../Loading'
 import './styles.css'
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: 'none',
+  },
+}))
+
 const PetAdd = () => {
+  const classes = useStyles()
   const {
     register,
     handleSubmit,
@@ -16,9 +32,12 @@ const PetAdd = () => {
   const { currentUser } = useAuth()
   const { createPet } = useUser()
   const [loading, setLoading] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState('')
   const [species, setSpecies] = useState('')
   const [notes, setNotes] = useState('')
+  const [fileURL, setFileURL] = useState('')
+
   let history = useHistory()
   const language = window.navigator.language
 
@@ -30,11 +49,28 @@ const PetAdd = () => {
     setSpecies(e.target.value)
   }
 
+  const handleFile = async (e) => {
+    setIsUploading(true)
+    const bucketName = 'images'
+    const file = e.target.files[0]
+    const storageRef = app.storage().ref()
+    const petImagesRef = storageRef.child(`${bucketName}/${file.name}`)
+    await petImagesRef.put(file)
+    petImagesRef.getDownloadURL().then((url) => setFileURL(url))
+    setIsUploading(false)
+  }
+
   const handleNotes = (e) => {
     setNotes(e.target.value)
   }
 
   const onSubmit = async (data) => {
+    if (!fileURL) {
+      language === 'en-US' || language === 'en'
+        ? setError('Pet picture required')
+        : setError('Se requiere foto de la mascota')
+      return null
+    }
     try {
       setError('')
       setLoading(true)
@@ -46,8 +82,7 @@ const PetAdd = () => {
         breed: data.breed,
         birthDate: data.birthDate,
         notes: notes,
-        profilePicture:
-          'https://images.unsplash.com/photo-1570566998157-0df9e6f8d5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=675&q=80',
+        profilePicture: fileURL,
       }
       await createPet(petData)
       history.push('/')
@@ -67,22 +102,68 @@ const PetAdd = () => {
         src={backArrow}
         alt={backArrow}
       />
-      <img
-        className='pet_details_picture'
-        src='https://images.unsplash.com/photo-1570566998157-0df9e6f8d5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=675&q=80'
-        alt='pet'
-      />
-      <p style={{ fontSize: '.8rem', alignSelf: 'center' }}>
-        {language === 'en-US' || language === 'en'
-          ? 'Upload picture under construction'
-          : 'Subir foto está en construcción'}
-      </p>
-
+      {!fileURL ? (
+        <div className='create_pet_picture'>
+          <input
+            required
+            accept='image/*'
+            className={classes.input}
+            id='file'
+            type='file'
+            onChange={handleFile}
+          />
+          <label htmlFor='file'>
+            <IconButton
+              color='primary'
+              aria-label='upload picture'
+              component='span'
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+        </div>
+      ) : (
+        <div
+          className='create_pet_picture'
+          style={{
+            backgroundImage: `url(${fileURL})`,
+            backgroundPosition: 'center',
+            objectFit: 'cover',
+            backgroundSize: 'cover',
+          }}
+        >
+          <input
+            required
+            accept='image/*'
+            className={classes.input}
+            id='file'
+            type='file'
+            onChange={handleFile}
+          />
+          <label htmlFor='file'>
+            <IconButton
+              color='transparent'
+              aria-label='upload picture'
+              component='span'
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+        </div>
+      )}
+      {isUploading && (
+        <span className='uploading_picture' role='alert'>
+          {language === 'en-US' || language === 'en'
+            ? 'UPLOADING PICTURE'
+            : 'CARGANDO IMAGEN'}
+        </span>
+      )}
       <h2 className='create_new_pet_title'>
         {language === 'en-US' || language === 'en'
           ? 'CREATE PET'
           : 'CREAR MASCOTA'}
       </h2>
+
       {error && <span role='alert'>{error}</span>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='input_container'>
