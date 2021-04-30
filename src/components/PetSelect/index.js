@@ -90,7 +90,7 @@ const PetSelect = () => {
         </div>
       </div>
       <div className='list_events_card'>
-        {!events && !loading ? <p>Loading events</p> : null}
+        {!events && loading ? <p>Loading events</p> : null}
 
         {events &&
           Object.values(events).map((event) => {
