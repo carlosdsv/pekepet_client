@@ -14,6 +14,7 @@ const Home = () => {
   const language = window.navigator.language
 
   const handleAdd = () => {
+    setLoading(true)
     history.push('/add')
   }
   const handleOptions = () => {
@@ -27,6 +28,7 @@ const Home = () => {
     } else {
       getPets(currentUser.uid)
     }
+    // eslint-disable-next-line
   }, [])
 
   if (loading) {

@@ -51,6 +51,7 @@
 .list_events_card {
   max-height: calc(var(--vh, 1vh) * 45);
   overflow: scroll;
+  overflow-x: hidden;
 }
 .add_event {
   position: absolute;

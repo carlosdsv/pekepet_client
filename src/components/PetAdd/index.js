@@ -37,9 +37,9 @@ const PetAdd = () => {
   const [species, setSpecies] = useState('')
   const [notes, setNotes] = useState('')
   const [fileURL, setFileURL] = useState('')
-
   let history = useHistory()
   const language = window.navigator.language
+  const petId = Date.now().toString()
 
   const handleBack = () => {
     history.goBack()
@@ -51,10 +51,10 @@ const PetAdd = () => {
 
   const handleFile = async (e) => {
     setIsUploading(true)
-    const bucketName = 'images'
+    const bucketName = currentUser.uid
     const file = e.target.files[0]
     const storageRef = app.storage().ref()
-    const petImagesRef = storageRef.child(`${bucketName}/${file.name}`)
+    const petImagesRef = storageRef.child(`${bucketName}/${petId}`)
     await petImagesRef.put(file)
     petImagesRef.getDownloadURL().then((url) => setFileURL(url))
     setIsUploading(false)
@@ -76,7 +76,7 @@ const PetAdd = () => {
       setLoading(true)
       const petData = {
         uid: currentUser.uid,
-        petId: Date.now().toString(),
+        petId: petId,
         name: data.name,
         species: species,
         breed: data.breed,

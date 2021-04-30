@@ -10,18 +10,27 @@ import './styles.css'
 const PetSelect = () => {
   let history = useHistory()
   const pet = history.location.state
-  const { events, loading, setLoading, getEvents } = useUser()
+  const { events, setEvents, loading, setLoading, getEvents } = useUser()
   const [selected, setSelected] = useState('recent')
   const language = window.navigator.language
+  console.log('loading.toString()')
+  console.log(loading.toString())
   useEffect(() => {
-    getEvents(pet.petId)
-    setLoading(false)
+    getEvents(pet.petId).then(setLoading(false))
+    // eslint-disable-next-line
   }, [])
-
+  const emptyEvents = (
+    <p>
+      {language === 'en-US' || language === 'en'
+        ? 'Start creating new event'
+        : 'Comienza creando un evento'}
+    </p>
+  )
   const handleSelect = (selectEvent) => {
     setSelected(selectEvent)
   }
   const handleBack = () => {
+    setEvents(null)
     history.push('/')
   }
   const handlePetDetails = () => {
@@ -32,10 +41,6 @@ const PetSelect = () => {
   }
   const generateKey = (pre) => {
     return `${pre}_${new Date().getTime()}`
-  }
-
-  if (loading) {
-    return <Loading />
   }
 
   return (
@@ -53,7 +58,7 @@ const PetSelect = () => {
           alt={pet.name}
           onClick={handlePetDetails}
         />
-        <h1 className='welcome_text'>{pet.name}</h1>
+        <h1 className='pet_name_title'>{pet.name}</h1>
       </div>
       <h1 className='events_title'>
         {language === 'en-US' || language === 'en' ? 'EVENTS' : 'EVENTOS'}
@@ -85,6 +90,8 @@ const PetSelect = () => {
         </div>
       </div>
       <div className='list_events_card'>
+        {!events && !loading ? <p>Loading events</p> : null}
+
         {events &&
           Object.values(events).map((event) => {
             if (selected === 'recent' && event.upcoming === false) {

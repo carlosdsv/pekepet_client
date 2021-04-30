@@ -29,6 +29,7 @@
 .pet_card_name {
   font-size: 2rem;
   font-weight: bold;
+  text-transform: capitalize;
 }
 .pet_card_birthDate {
   font-size: 0.9rem;
