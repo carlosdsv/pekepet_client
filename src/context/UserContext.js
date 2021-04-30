@@ -10,7 +10,7 @@ export function useUser() {
 export function UserProvider({ children }) {
   const [userName, setUserName] = useState('')
   const [pets, setPets] = useState([])
-  const [events, setEvents] = useState()
+  const [events, setEvents] = useState(null)
   const [loading, setLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 

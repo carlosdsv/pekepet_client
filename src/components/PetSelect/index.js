@@ -13,10 +13,9 @@ const PetSelect = () => {
   const { events, setEvents, loading, setLoading, getEvents } = useUser()
   const [selected, setSelected] = useState('recent')
   const language = window.navigator.language
-  console.log('loading.toString()')
-  console.log(loading.toString())
   useEffect(() => {
-    getEvents(pet.petId).then(setLoading(false))
+    getEvents(pet.petId)
+    setLoading(false)
     // eslint-disable-next-line
   }, [])
   const emptyEvents = (
@@ -91,6 +90,9 @@ const PetSelect = () => {
       </div>
       <div className='list_events_card'>
         {!events && loading ? <p>Loading events</p> : null}
+        {events !== null && events.length === 0 && !loading
+          ? emptyEvents
+          : null}
 
         {events &&
           Object.values(events).map((event) => {
